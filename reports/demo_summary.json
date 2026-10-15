@@ -1,0 +1,64 @@
+{
+  "claims_total": 300,
+  "claims_assessed": 300,
+  "flagged": 56,
+  "pct_flagged": 0.1867,
+  "avg_risk": 0.2145,
+  "status_counts": {
+    "LOW_RISK": 244,
+    "NEEDS_REVIEW": 3,
+    "HIGH_RISK": 53
+  },
+  "risk_by_payer": {
+    "Aetna": {
+      "n": 20,
+      "avg_risk": 0.3183
+    },
+    "Anthem": {
+      "n": 21,
+      "avg_risk": 0.1173
+    },
+    "Blue Cross Blue Shield": {
+      "n": 19,
+      "avg_risk": 0.236
+    },
+    "Cigna Health": {
+      "n": 16,
+      "avg_risk": 0.174
+    },
+    "Dual Eligible": {
+      "n": 19,
+      "avg_risk": 0.1885
+    },
+    "Humana": {
+      "n": 31,
+      "avg_risk": 0.3163
+    },
+    "Medicaid": {
+      "n": 45,
+      "avg_risk": 0.3254
+    },
+    "Medicare": {
+      "n": 114,
+      "avg_risk": 0.1548
+    },
+    "UnitedHealthcare": {
+      "n": 15,
+      "avg_risk": 0.1705
+    }
+  },
+  "predicted_reason_counts": {
+    "MISSING_DOCUMENTATION": 24,
+    "TIMELY_FILING": 17,
+    "MISSING_PRIOR_AUTH": 5,
+    "CODING_MISMATCH": 7
+  },
+  "llm_status_counts": {
+    "not_configured": 300
+  },
+  "reviews_total": 0,
+  "review_decisions": {},
+  "reviewer_acceptance_rate": null,
+  "data_note": "Synthetic data only. Decisions are made by humans.",
+  "llm_configured": false
+}

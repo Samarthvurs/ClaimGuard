@@ -85,6 +85,9 @@ Or step by step:
 .venv\Scripts\python scripts/load_demo_data.py
 ```
 
+Note: Synthea simulates up to the current date, so a fresh run produces slightly different data and
+metrics than the ones reported below.
+
 The LLM prompt evaluation is a **separate command** (needs a Gemini key):
 
 ```bash
