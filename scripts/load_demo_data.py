@@ -10,6 +10,7 @@ Usage: python scripts/load_demo_data.py [--n 300] [--llm-claims 20]
 from __future__ import annotations
 
 import argparse
+import json
 from collections import Counter
 
 import pandas as pd
@@ -58,7 +59,10 @@ def main() -> None:
         )
         statuses[assessment.risk_status] += 1
         llm_statuses[assessment.llm_status] += 1
+    summary = svc.summary(session)
     session.close()
+    summary["llm_configured"] = llm_state != "not_configured"
+    (config.REPORTS_DIR / "demo_summary.json").write_text(json.dumps(summary, indent=2))
     print(f"loaded {len(demo)} claims; risk status {dict(statuses)}; llm {dict(llm_statuses)}")
 
 

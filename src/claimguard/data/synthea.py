@@ -3,7 +3,8 @@
 from __future__ import annotations
 
 import shutil
-import subprocess  # nosec B404 - runs the local Synthea jar with fixed arguments
+# Runs the local Synthea jar with fixed arguments (no shell, no user input).
+import subprocess  # nosec B404
 import time
 import urllib.request
 from pathlib import Path
@@ -49,7 +50,8 @@ def download_jar(retries: int = 2) -> Path:
     last_error: Exception | None = None
     for attempt in range(retries + 1):
         try:
-            urllib.request.urlretrieve(JAR_URL, JAR_PATH)  # nosec B310 - fixed https URL
+            # Fixed https URL constant, never user input.
+            urllib.request.urlretrieve(JAR_URL, JAR_PATH)  # nosec B310
             return JAR_PATH
         except OSError as exc:
             last_error = exc

@@ -8,7 +8,9 @@ Usage: python scripts/run_all.py [--skip-download]
 from __future__ import annotations
 
 import argparse
-import subprocess  # nosec B404 - runs this project's own scripts
+
+# Runs this project's own scripts with the current interpreter (no shell).
+import subprocess  # nosec B404
 import sys
 from pathlib import Path
 

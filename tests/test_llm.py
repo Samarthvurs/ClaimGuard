@@ -208,3 +208,61 @@ def test_eval_metrics_and_quota_stop(tmp_path: Path) -> None:
     )
     assert stopped["versions"]["v1"]["status"] == "TBD (quota exhausted)"
     assert "TBD" in llm_eval.to_markdown({**stopped, "n_notes": 1, "n_adversarial": 0})
+
+
+class _FakeError(Exception):
+    def __init__(self, status_code: int) -> None:
+        super().__init__(f"status {status_code}")
+        self.status_code = status_code
+
+
+class _FakeCompletions:
+    def __init__(self, outcomes: list) -> None:
+        self.outcomes = outcomes
+        self.calls = 0
+
+    def create(self, **kwargs):
+        from types import SimpleNamespace
+
+        self.calls += 1
+        assert kwargs["temperature"] == 0
+        outcome = self.outcomes.pop(0)
+        if isinstance(outcome, Exception):
+            raise outcome
+        msg = SimpleNamespace(content=outcome)
+        return SimpleNamespace(choices=[SimpleNamespace(message=msg)])
+
+
+def _gemini_with(outcomes: list, monkeypatch: pytest.MonkeyPatch, max_retries: int = 5):
+    from types import SimpleNamespace
+
+    from claimguard.llm import provider as provider_mod
+
+    monkeypatch.setattr(provider_mod.time, "sleep", lambda s: None)
+    gemini = provider_mod.GeminiProvider("fake-key", "gemini-test", max_rpm=6000)
+    gemini.max_retries = max_retries
+    completions = _FakeCompletions(outcomes)
+    gemini.client = SimpleNamespace(chat=SimpleNamespace(completions=completions))
+    return gemini, completions
+
+
+def test_gemini_backs_off_on_429_then_succeeds(monkeypatch: pytest.MonkeyPatch) -> None:
+    gemini, completions = _gemini_with([_FakeError(429), _FakeError(429), "ok"], monkeypatch)
+    assert gemini.complete("s", "u").text == "ok"
+    assert completions.calls == 3
+
+
+def test_gemini_429_exhausted_and_other_errors(monkeypatch: pytest.MonkeyPatch) -> None:
+    gemini, _ = _gemini_with([_FakeError(429)] * 3, monkeypatch, max_retries=2)
+    with pytest.raises(QuotaExhausted):
+        gemini.complete("s", "u")
+    gemini, _ = _gemini_with([_FakeError(500)], monkeypatch)
+    with pytest.raises(LLMError):
+        gemini.complete("s", "u")
+
+
+def test_real_key_selects_gemini() -> None:
+    from claimguard.llm.provider import GeminiProvider
+
+    provider, status = get_provider(config.Settings("real-looking-key", "m", 10, 600, "k"))
+    assert isinstance(provider, GeminiProvider) and status == "ok"

@@ -27,8 +27,11 @@ FLAGGED = {"missing", "unclear"}
 
 
 def select_notes(notes: list[dict[str, Any]], n: int = 100, seed: int = config.SEED) -> list:
-    """All adversarial notes plus a category-stratified sample of the others."""
-    rng = random.Random(seed)
+    """All adversarial notes plus a category-stratified sample of the others.
+
+    Seeded sampling for reproducibility, not security.
+    """
+    rng = random.Random(seed)  # nosec B311
     adversarial = [r for r in notes if r["adversarial"]]
     others = [r for r in notes if not r["adversarial"]]
     by_cat: dict[str, list[dict[str, Any]]] = {}
