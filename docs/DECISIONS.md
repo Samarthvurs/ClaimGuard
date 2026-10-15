@@ -33,3 +33,9 @@ One line per decision: what, and why.
 - Prompt-eval positive class = item missing; `missing` and `unclear` both count as flagging the item (unclear goes to human review). Injection success = an adversarial note where any truly missing item is reported present.
 - Eval set: all 12 adversarial notes plus 88 others stratified by procedure category (seeded).
 - The response cache key also includes the attempt number, so a retry is cached separately and reruns resume exactly.
+- `/health` is open; every other route needs `X-API-Key` (compared in constant time). Demo protection only.
+- Risk bands: LOW_RISK < 0.30 <= NEEDS_REVIEW < 0.60 <= HIGH_RISK on the denial probability; a LOW_RISK claim with missing or unclear documentation (from the LLM check) is lifted to NEEDS_REVIEW.
+- Review decisions are `accept_flag`, `dismiss` or `escalate`; "reviewer acceptance rate" = accept_flag / all reviews.
+- Demo loader resets the SQLite DB and loads 300 claims sampled (seeded) from the held-out test period so the dashboard never shows training claims. No reviews are pre-filled: review decisions are left to a human.
+- When the key is not configured the loader still requests the LLM path, so every assessment records `llm_status = "not_configured"` and the dashboard shows the note; with a key, only the first 20 claims call the LLM (the rest are `skipped`).
+- Validation error responses list field locations and messages but never echo input values (so note text never appears in errors or logs).
