@@ -39,3 +39,4 @@ One line per decision: what, and why.
 - Demo loader resets the SQLite DB and loads 300 claims sampled (seeded) from the held-out test period so the dashboard never shows training claims. No reviews are pre-filled: review decisions are left to a human.
 - When the key is not configured the loader still requests the LLM path, so every assessment records `llm_status = "not_configured"` and the dashboard shows the note; with a key, only the first 20 claims call the LLM (the rest are `skipped`).
 - Validation error responses list field locations and messages but never echo input values (so note text never appears in errors or logs).
+- Dashboard is a single Streamlit script with a sidebar page selector (simpler to test with AppTest than a multipage app).
