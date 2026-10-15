@@ -1,0 +1,61 @@
+# Required-documentation checklists per procedure category.
+# Synthetic and simplified for a learning project; not real payer requirements.
+imaging:
+  - id: clinical_indication
+    name: Clinical indication
+    description: The symptom or diagnosis that justifies the imaging study.
+  - id: prior_conservative_treatment
+    name: Prior conservative treatment
+    description: Treatments tried before imaging (for example medication or physical therapy) and their outcome.
+  - id: symptom_duration
+    name: Symptom duration
+    description: How long the patient has had the symptoms.
+  - id: physical_exam_findings
+    name: Physical exam findings
+    description: Relevant findings from the physical examination.
+surgery:
+  - id: diagnosis_confirmation
+    name: Confirmed diagnosis
+    description: The confirmed diagnosis that the surgery treats.
+  - id: failed_conservative_treatment
+    name: Failed conservative treatment
+    description: Non-surgical treatments tried and why they failed.
+  - id: surgical_risk_assessment
+    name: Surgical risk assessment
+    description: Assessment of the patient's fitness and risks for surgery.
+  - id: informed_consent
+    name: Informed consent
+    description: Statement that risks and benefits were discussed and consent was obtained.
+  - id: functional_limitation
+    name: Functional limitation
+    description: How the condition limits the patient's daily activities.
+therapy:
+  - id: treatment_plan
+    name: Treatment plan
+    description: Planned therapy type, frequency and duration.
+  - id: functional_goals
+    name: Functional goals
+    description: Measurable goals the therapy aims to reach.
+  - id: progress_measurement
+    name: Progress measurement
+    description: Baseline or progress measurements (for example range of motion or pain score).
+diagnostic:
+  - id: clinical_indication
+    name: Clinical indication
+    description: The symptom or diagnosis that justifies the test.
+  - id: relevant_history
+    name: Relevant history
+    description: Relevant medical history supporting the need for the test.
+  - id: ordering_rationale
+    name: Ordering rationale
+    description: Why this specific test was chosen and how the result will change care.
+routine:
+  - id: visit_reason
+    name: Visit reason
+    description: The reason for the visit or screening.
+  - id: risk_factors
+    name: Risk factors
+    description: Relevant risk factors or screening eligibility.
+  - id: follow_up_plan
+    name: Follow-up plan
+    description: Planned follow-up after the visit.

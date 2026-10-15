@@ -1,0 +1,22 @@
+{
+  "n_claims": 30000,
+  "denial_rate": 0.1985,
+  "noise_rate_configured": 0.05,
+  "noise_rate_observed": 0.0501,
+  "rule_reason_counts": {
+    "NONE": 25041,
+    "MISSING_DOCUMENTATION": 2140,
+    "CODING_MISMATCH": 1154,
+    "TIMELY_FILING": 1118,
+    "MISSING_PRIOR_AUTH": 547
+  },
+  "final_reason_counts": {
+    "NONE": 24045,
+    "MISSING_DOCUMENTATION": 2364,
+    "TIMELY_FILING": 1391,
+    "CODING_MISMATCH": 1367,
+    "MISSING_PRIOR_AUTH": 833
+  },
+  "note": "Synthetic data with rule-derived labels; not real payer outcomes.",
+  "data_source": "synthea"
+}

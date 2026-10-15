@@ -1,0 +1,151 @@
+procedure_code,procedure_description,category,prior_auth_required,min_documents
+710824005,Assessment of health and social care needs (procedure),routine,False,0
+265764009,Renal dialysis (procedure),therapy,False,2
+34043003,Dental consultation and report (procedure),routine,False,0
+430193006,Medication reconciliation (procedure),routine,False,0
+180256009,Subcutaneous immunotherapy (procedure),therapy,True,2
+76601001,Intramuscular injection (procedure),therapy,False,2
+52052004,Rehabilitation therapy (regime/therapy),therapy,True,2
+274804006,Evaluation of uterine fundal height (procedure),routine,False,0
+225158009,Auscultation of the fetal heart (procedure),diagnostic,False,1
+16830007,Visual acuity testing (procedure),diagnostic,False,1
+103750000,Sleep apnea assessment (procedure),routine,False,0
+103697008,Patient referral for dental care (procedure),routine,False,0
+73761001,Colonoscopy (procedure),diagnostic,False,1
+710841007,Assessment of anxiety (procedure),routine,False,0
+171207006,Depression screening (procedure),routine,False,0
+127783003,Spirometry (procedure),diagnostic,False,1
+117015009,Throat culture (procedure),diagnostic,False,1
+23426006,Measurement of respiratory function (procedure),diagnostic,False,1
+5880005,Physical examination procedure (procedure),routine,False,0
+703423002,Combined chemotherapy and radiation therapy (procedure),therapy,True,2
+169230002,Ultrasound scan for fetal viability (procedure),imaging,False,2
+229064008,Movement therapy (regime/therapy),therapy,False,2
+25656009,Physical examination  complete (procedure),routine,False,0
+399208008,Plain X-ray of chest (procedure),imaging,False,2
+410401003,Nursing care/supplementary surveillance (regime/therapy),routine,False,0
+91251008,Physical therapy procedure (regime/therapy),therapy,True,2
+1269321004,Fitting of denture (procedure),diagnostic,False,1
+228557008,Cognitive and behavioral therapy (regime/therapy),therapy,False,2
+65200003,Insertion of intrauterine contraceptive device (procedure),surgery,True,3
+84100007,History taking (procedure),diagnostic,False,1
+33195004,External beam radiation therapy procedure (procedure),therapy,True,2
+312681000,Bone density scan (procedure),imaging,False,2
+71651007,Mammography (procedure),imaging,False,2
+288086009,Suture open wound (procedure),diagnostic,False,1
+252160004,Standard pregnancy test (procedure),diagnostic,False,1
+261352009,Face mask (physical object),diagnostic,False,1
+169553002,Implantation of subcutaneous contraceptive (procedure),surgery,True,3
+269911007,Sputum examination (procedure),routine,False,0
+63332003,History AND physical examination (procedure),routine,False,0
+395142003,Allergy screening test (procedure),routine,False,0
+183519002,Referral to cardiology service (procedure),routine,False,0
+46706006,Replacement of contraceptive intrauterine device (procedure),surgery,True,3
+301807007,Removal of subcutaneous contraceptive (procedure),diagnostic,False,1
+67879005,History and physical examination  limited (procedure),routine,False,0
+310417005,Certification procedure (procedure),diagnostic,False,1
+714812005,Induced termination of pregnancy (procedure),diagnostic,False,1
+51116004,Passive immunization (procedure),routine,False,0
+33367005,Angiography of coronary artery (procedure),diagnostic,False,1
+1263416007,Removal of intrauterine contraceptive device (procedure),diagnostic,False,1
+473231009,Renal disorder medication review (procedure),diagnostic,False,1
+85548006,Episiotomy (procedure),surgery,True,3
+386394001,Pregnancy termination care (regime/therapy),therapy,False,2
+40701008,Echocardiography (procedure),diagnostic,False,1
+90226004,Cytopathology procedure  preparation of smear  genital source (procedure),diagnostic,False,1
+1287742003,Radiotherapy (procedure),therapy,False,2
+311791003,Information gathering (procedure),diagnostic,False,1
+14768001,Peripheral blood smear interpretation (procedure),diagnostic,False,1
+415070008,Percutaneous coronary intervention,diagnostic,False,1
+428211000124100,Assessment of substance use (procedure),routine,False,0
+386216000,Human parturition  function (observable entity),diagnostic,False,1
+18946005,Epidural anesthesia (procedure),diagnostic,False,1
+713026007,Plain X-ray of humerus (procedure),imaging,False,2
+243063003,Postoperative procedure education (procedure),routine,False,0
+11466000,Cesarean section (procedure),diagnostic,False,1
+385798007,Radiation therapy care (regime/therapy),therapy,True,2
+31208007,Medical induction of labor (procedure),diagnostic,False,1
+65546002,Extraction of wisdom tooth (procedure),surgery,True,3
+367336001,Chemotherapy (procedure),therapy,True,2
+1290407002,Plain X-ray of knee region (procedure),imaging,False,2
+29303009,Electrocardiographic procedure (procedure),diagnostic,False,1
+274031008,Rectal polypectomy (procedure),surgery,True,3
+268533009,Sterilization education (procedure),routine,False,0
+84478008,Occupational therapy (regime/therapy),therapy,True,2
+443529005,Detection of chromosomal aneuploidy in prenatal amniotic fluid specimen using fluorescence in situ hybridization screening technique (procedure),routine,False,0
+399014008,Administration of vaccine product containing only Bordetella pertussis and Clostridium tetani and Corynebacterium diphtheriae antigens (procedure),routine,False,0
+385781007,Home health aide service (regime/therapy),therapy,False,2
+3802001,Dental application of desensitizing medicament (procedure),diagnostic,False,1
+315639002,Initial patient assessment (procedure),routine,False,0
+168594001,Plain X-ray of clavicle (procedure),imaging,False,2
+313191000,Injection of epinephrine (procedure),therapy,False,2
+237001001,Augmentation of labor (procedure),diagnostic,False,1
+232717009,Coronary artery bypass grafting (procedure),diagnostic,False,1
+287664005,Ligation of bilateral fallopian tubes (procedure),diagnostic,False,1
+290045001,Kitchen practice (regime/therapy),therapy,False,2
+275833003,Alpha-fetoprotein test - antenatal (procedure),diagnostic,False,1
+417511005,Referral to home health care service (procedure),routine,False,0
+268556000,Urine screening for glucose (procedure),routine,False,0
+118001005,Streptococcus pneumoniae group B antigen assay (procedure),diagnostic,False,1
+410006001,Digital examination of rectum (procedure),routine,False,0
+306316000,Referral to transplant surgeon (procedure),routine,False,0
+182777000,Monitoring of patient (regime/therapy),therapy,False,2
+428830000,Pretransplant evaluation of kidney recipient (procedure),routine,False,0
+171231001,Asthma screening (procedure),routine,False,0
+699253003,Surgical manipulation of joint of knee (procedure),surgery,True,3
+80146002,Excision of appendix (procedure),surgery,True,3
+390791001,Referral for echocardiography (procedure),routine,False,0
+713024005,Plain X-ray of wrist region (procedure),imaging,False,2
+236974004,Instrumental delivery (procedure),diagnostic,False,1
+311555007,Speech and language therapy regime (regime/therapy),therapy,False,2
+386478007,Triage: emergency center (procedure),diagnostic,False,1
+408919008,Psychosocial care (regime/therapy),therapy,False,2
+1290459008,Plain X-ray of ankle region (procedure),imaging,False,2
+104173009,Microbial culture of sputum (procedure),diagnostic,False,1
+104091002,Hemogram  automated  with red blood cells  white blood cells  hemoglobin  hematocrit  indices  platelet count  and manual white blood cell differential (procedure),diagnostic,False,1
+104435004,Screening for occult blood in feces (procedure),routine,False,0
+43075005,Partial resection of colon (procedure),diagnostic,False,1
+392021009,Lumpectomy of breast (procedure),surgery,True,3
+122548005,Biopsy of breast (procedure),surgery,True,3
+762993000,Assessment using Morse Fall Scale (procedure),routine,False,0
+183856001,Referral to hypertension clinic (procedure),routine,False,0
+58000006,Patient discharge (procedure),diagnostic,False,1
+698354004,Magnetic resonance imaging for measurement of brain volume (procedure),imaging,True,2
+180207008,Intravenous blood transfusion of packed cells (procedure),diagnostic,False,1
+112790001,Nasal sinus endoscopy (procedure),diagnostic,False,1
+65575008,Biopsy of prostate (procedure),surgery,True,3
+183418007,Social case work (regime/therapy),therapy,False,2
+223487003,Discussion about options (procedure),diagnostic,False,1
+305351004,Admission to intensive care unit (procedure),diagnostic,False,1
+1290953004,Plain X-ray of spine and pelvis (procedure),imaging,False,2
+418891003,Computed tomography of chest and abdomen (procedure),imaging,True,2
+305433001,Admission to trauma surgery department (procedure),diagnostic,False,1
+367494004,Premature birth of newborn (finding),diagnostic,False,1
+713021002,Plain X-ray of pelvis (procedure),imaging,False,2
+433112001,Percutaneous mechanical thrombectomy of portal vein using fluoroscopic guidance with contrast (procedure),routine,False,0
+709010006,Liaising with referral source (procedure),routine,False,0
+430701006,Resuscitation using intravenous fluid (procedure),diagnostic,False,1
+225338004,Risk assessment (procedure),routine,False,0
+305342007,Admission to ward (procedure),diagnostic,False,1
+180325003,Direct current cardioversion (procedure),diagnostic,False,1
+165355002,Patient informed - test result (situation),diagnostic,False,1
+392247006,Insertion of catheter into artery (procedure),surgery,True,3
+384700001,Injection of tetanus antitoxin (procedure),therapy,False,2
+44608003,Blood group typing (procedure),diagnostic,False,1
+88039007,Transplant of lung (procedure),surgery,True,3
+236931002,Methotrexate injection into tubal pregnancy (procedure),therapy,False,2
+170245002,Child examination: school screening (procedure),routine,False,0
+45595009,Laparoscopic cholecystectomy (procedure),surgery,True,3
+90470006,Prostatectomy (procedure),surgery,True,3
+609588000,Prosthetic total arthroplasty of knee joint (procedure),surgery,True,3
+54550000,Electroencephalogram (procedure),diagnostic,False,1
+429609002,Lung volume reduction surgery (procedure),diagnostic,False,1
+122856003,Oral examination (procedure),routine,False,0
+122869004,Measurement procedure (procedure),diagnostic,False,1
+177157003,Spontaneous breech delivery (procedure),diagnostic,False,1
+180178009,Continuous subcutaneous infusion of insulin (procedure),diagnostic,False,1
+171121004,Human immunodeficiency virus screening (procedure),routine,False,0
+133900002,Intraoperative care (regime/therapy),therapy,False,2
+1290789000,Plain X-ray of mandible (procedure),imaging,False,2
+112001000119100,Positive screening for depression on Patient Health Questionnaire 9 (finding),routine,False,0
+234336002,Hemopoietic stem cell transplant (procedure),surgery,True,3

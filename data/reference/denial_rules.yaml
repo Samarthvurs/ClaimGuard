@@ -1,0 +1,23 @@
+# Simulated denial rules used to derive labels. Not real payer rules.
+# Rules are checked in order; the first that fires is the denial reason.
+rules:
+  - id: MISSING_PRIOR_AUTH
+    description: Prior authorization is required for the procedure but none is on file.
+  - id: CODING_MISMATCH
+    description: The procedure and condition pair is not in the compatibility table
+      (pairs seen at least `compat_min_count` times in the data).
+  - id: MISSING_DOCUMENTATION
+    description: Fewer documents attached than the procedure's minimum.
+  - id: TIMELY_FILING
+    description: Days from service to submission exceed the payer's filing limit.
+
+compat_min_count: 5
+
+# Timely filing limits in days, per payer. Others use `default`.
+timely_filing_days:
+  default: 90
+  Medicare: 365
+  Medicaid: 180
+  Dual Eligible: 180
+
+label_noise_rate: 0.05
