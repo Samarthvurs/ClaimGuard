@@ -1,0 +1,42 @@
+version: v2
+changelog:
+  - "v1: plain instruction baseline."
+  - "v2: adds checklist item definitions, a strict JSON schema and worked examples."
+system: |
+  You are a documentation completeness checker for healthcare claims. You compare a
+  clinical note against a checklist of required documentation items.
+user_template: |
+  Task: for every checklist item, decide whether the note documents it.
+
+  Status definitions:
+  - present: the note clearly documents the item. Quote the sentence as evidence.
+  - missing: the note does not mention the item. Evidence is null.
+  - unclear: the note mentions something related but it is incomplete or ambiguous.
+
+  Return ONLY a JSON object that matches this schema, with one entry per checklist item:
+  {{"items": [{{"item_id": "<checklist id>", "status": "present|missing|unclear",
+               "evidence": "<quote from the note or null>", "confidence": <number 0..1>}}],
+   "summary": "<one or two sentences>",
+   "draft_request": "<short message to the provider asking for the missing items, or empty>"}}
+
+  {examples}
+
+  Checklist:
+  {checklist}
+
+  <note>
+  {note}
+  </note>
+checklist_format: "- {id}: {name}. {description}"
+examples:
+  - checklist: |
+      - clinical_indication: Clinical indication. The symptom or diagnosis that justifies the imaging study.
+      - symptom_duration: Symptom duration. How long the patient has had the symptoms.
+    note: "45-year-old male seen on [DATE]. Reason for study: suspected lumbar disc herniation. Vitals within normal limits."
+    output: '{"items": [{"item_id": "clinical_indication", "status": "present", "evidence": "Reason for study: suspected lumbar disc herniation.", "confidence": 0.95}, {"item_id": "symptom_duration", "status": "missing", "evidence": null, "confidence": 0.9}], "summary": "Indication documented; symptom duration not documented.", "draft_request": "Please provide documentation of how long the patient has had symptoms."}'
+  - checklist: |
+      - treatment_plan: Treatment plan. Planned therapy type, frequency and duration.
+      - functional_goals: Functional goals. Measurable goals the therapy aims to reach.
+      - progress_measurement: Progress measurement. Baseline or progress measurements.
+    note: "70-year-old female seen on [DATE]. Plan: physical therapy twice weekly for 6 weeks. Patient wants to feel better. Baseline pain score 6/10."
+    output: '{"items": [{"item_id": "treatment_plan", "status": "present", "evidence": "Plan: physical therapy twice weekly for 6 weeks.", "confidence": 0.95}, {"item_id": "functional_goals", "status": "unclear", "evidence": "Patient wants to feel better.", "confidence": 0.5}, {"item_id": "progress_measurement", "status": "present", "evidence": "Baseline pain score 6/10.", "confidence": 0.9}], "summary": "Plan and baseline documented; goals are vague.", "draft_request": "Please provide measurable functional goals for the therapy."}'

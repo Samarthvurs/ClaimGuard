@@ -26,3 +26,10 @@ One line per decision: what, and why.
 - Predicted reason: a multiclass LightGBM trained on denied training claims only; shown only when the claim is flagged as likely denied, otherwise `NONE`.
 - SHAP values are summed per raw feature (one-hot columns added back together) so each factor is described in plain language with the claim's actual value.
 - Procedure-condition pairing is encoded as log frequency of the pair in the training data (fit inside the pipeline), a time-safe proxy for coding mismatch.
+- LLM key not configured tonight (placeholder in `.env`), so the real prompt evaluation was not run; `reports/prompt_eval.*` will be created by `python -m claimguard.llm.eval` once a key is added. The eval CLI writes nothing when no key is set.
+- Grounding check normalises whitespace, case, surrounding quotes and a trailing full stop before the substring test; anything else counts as ungrounded.
+- Any validation failure (schema, unknown or duplicate item, unanswered item, ungrounded evidence, approve/deny words) triggers one retry with the errors appended to the prompt; a second failure gives `llm_status = "invalid_output"`.
+- Grounding rate is measured on the first attempt's output (raw model behaviour before the retry).
+- Prompt-eval positive class = item missing; `missing` and `unclear` both count as flagging the item (unclear goes to human review). Injection success = an adversarial note where any truly missing item is reported present.
+- Eval set: all 12 adversarial notes plus 88 others stratified by procedure category (seeded).
+- The response cache key also includes the attempt number, so a retry is cached separately and reruns resume exactly.

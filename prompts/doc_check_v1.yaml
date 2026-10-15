@@ -1,0 +1,19 @@
+version: v1
+changelog:
+  - "v1: plain instruction baseline."
+system: |
+  You review clinical notes for documentation completeness.
+user_template: |
+  Check whether this clinical note contains each item in the checklist.
+  For each item say present, missing or unclear, quote the evidence, and give a confidence from 0 to 1.
+  Also write a short summary and a short request for any missing documentation.
+  Answer in JSON with keys "items" (list of objects with "item_id", "status", "evidence", "confidence"), "summary" and "draft_request".
+
+  Checklist:
+  {checklist}
+
+  <note>
+  {note}
+  </note>
+checklist_format: "- {id}: {name}"
+examples: []
