@@ -18,3 +18,11 @@ One line per decision: what, and why.
 - History features use a smoothed rate (prior 0.2, weight 5) over strictly earlier service dates; same-day claims do not see each other.
 - Every claim gets a note (routine claims too) so the API and dashboard always have a note to show; 12 notes are adversarial.
 - Fallback generator writes Synthea-shaped CSVs (same columns) so the builder code is identical for both sources.
+- Split: test = latest 20% of service dates; validation = latest 20% of the remaining training period. Models are fit on train only; validation picks hyperparameters, calibration and the threshold.
+- Hyperparameter search: small grid (LightGBM 8 combos, logistic regression 3 values of C), chosen by validation PR-AUC.
+- Calibration: isotonic fit on the first half of validation and judged on the second half; adopted only if Brier improves by at least 5%.
+- Threshold rule: the probability that maximises F1 on the validation slice; stored in the model artifact and metadata (config holds only a fallback).
+- Served model is LightGBM (TreeSHAP explanations, non-linear rules); logistic regression is the reported baseline.
+- Predicted reason: a multiclass LightGBM trained on denied training claims only; shown only when the claim is flagged as likely denied, otherwise `NONE`.
+- SHAP values are summed per raw feature (one-hot columns added back together) so each factor is described in plain language with the claim's actual value.
+- Procedure-condition pairing is encoded as log frequency of the pair in the training data (fit inside the pipeline), a time-safe proxy for coding mismatch.

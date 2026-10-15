@@ -23,4 +23,4 @@ select = ["E", "F", "I", "B", "UP", "W"]
 testpaths = ["tests"]
 pythonpath = ["src"]
 addopts = "-q"
-filterwarnings = ["ignore::DeprecationWarning", "ignore::FutureWarning", "ignore::UserWarning"]
+filterwarnings = ["ignore::DeprecationWarning", "ignore::PendingDeprecationWarning", "ignore::FutureWarning", "ignore::UserWarning"]

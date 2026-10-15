@@ -1,0 +1,51 @@
+{
+  "model_name": "LightGBM denial classifier",
+  "seed": 42,
+  "trained_at": "2026-10-15T19:33:51+00:00",
+  "features": [
+    "age",
+    "log_claim_cost",
+    "prior_auth_required",
+    "prior_auth_on_file",
+    "documents_attached_count",
+    "min_documents",
+    "docs_shortfall",
+    "days_to_submission",
+    "filing_limit_days",
+    "days_over_limit",
+    "provider_prior_denial_rate",
+    "patient_prior_denials",
+    "sex",
+    "payer",
+    "encounter_class",
+    "procedure_category",
+    "provider_specialty",
+    "procedure_code",
+    "condition_code"
+  ],
+  "params": {
+    "num_leaves": 31,
+    "learning_rate": 0.05,
+    "n_estimators": 200
+  },
+  "threshold": 0.6355,
+  "calibrated": false,
+  "test_metrics": {
+    "n": 6005,
+    "positive_rate": 0.1962,
+    "pr_auc": 0.8157,
+    "roc_auc": 0.8913,
+    "f1": 0.8351,
+    "precision": 0.9221,
+    "recall": 0.7632,
+    "brier": 0.0546,
+    "threshold": 0.6355,
+    "confusion_matrix": {
+      "tn": 4751,
+      "fp": 76,
+      "fn": 279,
+      "tp": 899
+    }
+  },
+  "n_train": 19194
+}
