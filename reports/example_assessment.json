@@ -1,0 +1,83 @@
+{
+  "note": "Example assessment from the ML-only demo database (synthetic claim).",
+  "external_id": "CLM-028392",
+  "payer": "Blue Cross Blue Shield",
+  "procedure_category": "therapy",
+  "procedure_description": "Cognitive and behavioral therapy (regime/therapy)",
+  "condition_description": "Child attention deficit disorder (disorder)",
+  "service_date": "2026-04-13",
+  "fields": {
+    "age": 13,
+    "sex": "M",
+    "payer": "Blue Cross Blue Shield",
+    "encounter_class": "ambulatory",
+    "procedure_category": "therapy",
+    "provider_specialty": "GENERAL PRACTICE",
+    "procedure_code": 228557008,
+    "condition_code": "192127007",
+    "claim_cost": 208.38,
+    "prior_auth_required": false,
+    "prior_auth_on_file": false,
+    "documents_attached_count": 1,
+    "min_documents": 2,
+    "days_to_submission": 33,
+    "provider_prior_denial_rate": 0.1677018633540372,
+    "patient_prior_denials": 1
+  },
+  "note_redacted": "Patient: [NAME]. DOB: [DATE]. MRN: [ID]. Phone: [PHONE].\n13-year-old male seen on [DATE]. Therapy plan documented: cognitive and behavioral therapy for 12 visits. Medication list reviewed. Baseline pain score 7/10.",
+  "assessment": {
+    "denial_probability": 0.9387,
+    "likely_denied": true,
+    "risk_status": "HIGH_RISK",
+    "predicted_reason": "MISSING_DOCUMENTATION",
+    "factors": [
+      {
+        "feature": "docs_shortfall",
+        "label": "Missing documents",
+        "description": "1 fewer document(s) than required",
+        "shap_value": 4.6473,
+        "direction": "increases risk"
+      },
+      {
+        "feature": "min_documents",
+        "label": "Documents required",
+        "description": "Procedure needs at least 2 document(s)",
+        "shap_value": 0.2144,
+        "direction": "increases risk"
+      },
+      {
+        "feature": "payer",
+        "label": "Payer",
+        "description": "Payer: Blue Cross Blue Shield",
+        "shap_value": 0.1951,
+        "direction": "increases risk"
+      },
+      {
+        "feature": "days_to_submission",
+        "label": "Days to submission",
+        "description": "Submitted 33 days after service (payer limit 90)",
+        "shap_value": -0.1652,
+        "direction": "decreases risk"
+      },
+      {
+        "feature": "documents_attached_count",
+        "label": "Documents attached",
+        "description": "1 document(s) attached (minimum 2)",
+        "shap_value": 0.161,
+        "direction": "increases risk"
+      }
+    ],
+    "llm_status": "not_configured",
+    "model_info": {
+      "ml_model": "LightGBM denial classifier",
+      "ml_trained_at": "2026-10-15T19:33:51+00:00",
+      "threshold": 0.6355,
+      "reason_probabilities": {
+        "CODING_MISMATCH": 0.0004,
+        "MISSING_DOCUMENTATION": 0.9992,
+        "MISSING_PRIOR_AUTH": 0.0003,
+        "TIMELY_FILING": 0.0001
+      }
+    }
+  }
+}

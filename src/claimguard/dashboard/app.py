@@ -8,12 +8,16 @@ from __future__ import annotations
 import json
 from typing import Any
 
-import pandas as pd
-import streamlit as st
+import matplotlib
 
-from claimguard import config
-from claimguard.api.db import session_factory
-from claimguard.services import assessment as svc
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt  # noqa: E402
+import pandas as pd  # noqa: E402
+import streamlit as st  # noqa: E402
+
+from claimguard import config  # noqa: E402
+from claimguard.api.db import session_factory  # noqa: E402
+from claimguard.services import assessment as svc  # noqa: E402
 
 PAGES = ["Overview", "Review queue", "Evaluation"]
 BANNER = "Synthetic data only. Decisions are made by humans."
@@ -108,6 +112,18 @@ def _review_section(session: Any, detail: dict[str, Any]) -> None:
             st.rerun()
 
 
+def _factor_chart(factors: pd.DataFrame) -> plt.Figure:
+    """Horizontal SHAP bars, largest at the top; red raises risk, blue lowers it."""
+    data = factors.iloc[::-1]
+    colors = ["#c0392b" if v > 0 else "#2e6da4" for v in data["shap_value"]]
+    fig, ax = plt.subplots(figsize=(8, 0.5 * len(data) + 0.8))
+    ax.barh(data["description"], data["shap_value"], color=colors)
+    ax.axvline(0, color="grey", linewidth=0.8)
+    ax.set_xlabel("SHAP value (log-odds); positive raises denial risk")
+    fig.tight_layout()
+    return fig
+
+
 def page_review_queue(session: Any) -> None:
     st.header("Review queue")
     rows: list[Any] = []
@@ -144,14 +160,16 @@ def page_review_queue(session: Any) -> None:
 
     st.markdown(f"### {claim.external_id}: {claim.procedure_description}")
     c1, c2, c3 = st.columns(3)
-    c1.metric("Denial risk", f"{a['denial_probability']:.0%}")
+    c1.metric("Denial risk", f"{a['denial_probability']:.1%}")
     c2.metric("Risk status", a["risk_status"])
     c3.metric("Predicted reason", a["predicted_reason"])
     st.caption(a["disclaimer"])
 
     st.subheader("Top factors (SHAP)")
     factors = pd.DataFrame(a["factors"])
-    st.bar_chart(factors, x="description", y="shap_value", horizontal=True)
+    fig = _factor_chart(factors)
+    st.pyplot(fig)
+    plt.close(fig)
     st.dataframe(
         factors[["description", "direction", "shap_value"]],
         hide_index=True,
