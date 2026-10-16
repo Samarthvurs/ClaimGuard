@@ -6,8 +6,11 @@ Only redacted note text and its hash are stored; raw notes are never persisted.
 from __future__ import annotations
 
 import os
+from collections.abc import Iterator
+from contextlib import contextmanager
 from datetime import UTC, datetime
 from functools import lru_cache
+from pathlib import Path
 from typing import Any
 
 from sqlalchemy import (
@@ -133,3 +136,24 @@ def get_engine(url: str | None = None) -> Engine:
 def session_factory(url: str | None = None) -> sessionmaker[Session]:
     """Session factory bound to the engine for `url`."""
     return sessionmaker(bind=get_engine(url or database_url()), expire_on_commit=False)
+
+
+class AlreadyRunning(RuntimeError):
+    """Another process holds the lock."""
+
+
+@contextmanager
+def exclusive_lock(path: Path) -> Iterator[None]:
+    """Hold a lock file so two processes never reset the same database at once."""
+    try:
+        fd = os.open(path, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+    except FileExistsError as exc:
+        raise AlreadyRunning(
+            f"{path.name} exists: another run is in progress. If none is running, delete {path}."
+        ) from exc
+    try:
+        os.write(fd, str(os.getpid()).encode())
+        os.close(fd)
+        yield
+    finally:
+        path.unlink(missing_ok=True)

@@ -266,3 +266,19 @@ def test_real_key_selects_gemini() -> None:
 
     provider, status = get_provider(config.Settings("real-looking-key", "m", 10, 600, "k"))
     assert isinstance(provider, GeminiProvider) and status == "ok"
+
+
+def test_resolve_model_falls_back_when_name_rejected(monkeypatch: pytest.MonkeyPatch) -> None:
+    from types import SimpleNamespace
+
+    class _Rejecting:
+        def __init__(self, *args, **kwargs) -> None:
+            models = [SimpleNamespace(id=f"models/{n}") for n in ("gemini-flash-lite-latest", "x")]
+            self.client = SimpleNamespace(models=SimpleNamespace(list=lambda: models))
+
+        def complete(self, system: str, user: str):
+            raise LLMError("rejected") from _FakeError(404)
+
+    monkeypatch.setattr(llm_eval, "GeminiProvider", _Rejecting)
+    settings = config.Settings("real-looking-key", "gemini-2.5-flash-lite", 10, 600, "k")
+    assert llm_eval.resolve_model(settings) == "gemini-flash-lite-latest"

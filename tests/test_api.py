@@ -149,3 +149,15 @@ def test_risk_status_bands() -> None:
     assert risk_status(0.1, doc_items_need_attention=True) == "NEEDS_REVIEW"
     assert risk_status(0.45) == "NEEDS_REVIEW"
     assert risk_status(0.9) == "HIGH_RISK"
+
+
+def test_exclusive_lock_blocks_a_second_run(tmp_path) -> None:
+    from claimguard.api.db import AlreadyRunning, exclusive_lock
+
+    lock = tmp_path / "demo.db.lock"
+    with exclusive_lock(lock):
+        assert lock.exists()
+        with pytest.raises(AlreadyRunning), exclusive_lock(lock):
+            pass
+        assert lock.exists()  # the failed second run must not remove the first run's lock
+    assert not lock.exists()

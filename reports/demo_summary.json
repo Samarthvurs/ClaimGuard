@@ -54,11 +54,12 @@
     "CODING_MISMATCH": 7
   },
   "llm_status_counts": {
-    "not_configured": 300
+    "unavailable": 20,
+    "skipped": 280
   },
   "reviews_total": 0,
   "review_decisions": {},
   "reviewer_acceptance_rate": null,
   "data_note": "Synthetic data only. Decisions are made by humans.",
-  "llm_configured": false
+  "llm_configured": true
 }

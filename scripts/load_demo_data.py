@@ -11,16 +11,30 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from collections import Counter
 
 import pandas as pd
 
 from claimguard import config
-from claimguard.api.db import Base, get_engine, session_factory
+from claimguard.api.db import AlreadyRunning, Base, exclusive_lock, get_engine, session_factory
 from claimguard.data.notes import load_notes
-from claimguard.llm.provider import get_provider
+from claimguard.llm.eval import resolve_model
+from claimguard.llm.provider import LLMProvider, get_provider
 from claimguard.ml.train import time_split
 from claimguard.services import assessment as svc
+
+LOCK_PATH = config.DB_PATH.with_name(config.DB_PATH.name + ".lock")
+
+
+def make_provider() -> tuple[LLMProvider, str]:
+    """Provider and LLM state; with a key, check the model name first (as the eval does)."""
+    settings = config.get_settings()
+    if settings.llm_configured:
+        model = resolve_model(settings)
+        settings = config.Settings(**{**settings.__dict__, "llm_model": model})
+        print(f"LLM model: {model}")
+    return get_provider(settings)
 
 
 def main() -> None:
@@ -28,10 +42,18 @@ def main() -> None:
     parser.add_argument("--n", type=int, default=300)
     parser.add_argument("--llm-claims", type=int, default=20)
     args = parser.parse_args()
+    try:
+        with exclusive_lock(LOCK_PATH):
+            load(args.n, args.llm_claims)
+    except AlreadyRunning as exc:
+        sys.exit(f"Not loading: {exc}")
 
+
+def load(n: int, llm_claims: int) -> None:
+    """Reset the demo database, then create and assess `n` test-period claims."""
     claims = pd.read_csv(config.CLAIMS_PATH)
     _, test = time_split(claims)  # demo claims come from the held-out test period
-    demo = test.sample(n=min(args.n, len(test)), random_state=config.SEED)
+    demo = test.sample(n=min(n, len(test)), random_state=config.SEED)
     notes = {r["claim_id"]: r["note"] for r in load_notes()}
 
     engine = get_engine()
@@ -39,7 +61,7 @@ def main() -> None:
     Base.metadata.create_all(engine)
     session = session_factory()()
 
-    provider, llm_state = get_provider()
+    provider, llm_state = make_provider()
     statuses: Counter[str] = Counter()
     llm_statuses: Counter[str] = Counter()
     for i, row in enumerate(demo.to_dict(orient="records")):
@@ -50,7 +72,7 @@ def main() -> None:
             "note": notes[row["claim_id"]],
         }
         claim = svc.create_claim(session, payload)
-        use_llm = llm_state == "not_configured" or i < args.llm_claims
+        use_llm = llm_state == "not_configured" or i < llm_claims
         assessment = svc.assess_claim(
             session,
             claim.id,
