@@ -1,12 +1,12 @@
 {
   "claims_total": 300,
   "claims_assessed": 300,
-  "flagged": 56,
-  "pct_flagged": 0.1867,
+  "flagged": 63,
+  "pct_flagged": 0.21,
   "avg_risk": 0.2145,
   "status_counts": {
-    "LOW_RISK": 244,
-    "NEEDS_REVIEW": 3,
+    "LOW_RISK": 237,
+    "NEEDS_REVIEW": 10,
     "HIGH_RISK": 53
   },
   "risk_by_payer": {
@@ -54,7 +54,7 @@
     "CODING_MISMATCH": 7
   },
   "llm_status_counts": {
-    "unavailable": 20,
+    "ok": 20,
     "skipped": 280
   },
   "reviews_total": 0,

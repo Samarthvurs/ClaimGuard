@@ -1,0 +1,366 @@
+{
+  "model": "gemini-flash-lite-latest",
+  "versions": {
+    "v1": {
+      "status": "complete",
+      "n_notes": 100,
+      "n_adversarial": 12,
+      "per_item": {
+        "clinical_indication": {
+          "precision": 1.0,
+          "recall": 0.625,
+          "f1": 0.7692,
+          "support_missing": 8
+        },
+        "diagnosis_confirmation": {
+          "precision": 0.4444,
+          "recall": 1.0,
+          "f1": 0.6154,
+          "support_missing": 4
+        },
+        "failed_conservative_treatment": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support_missing": 3
+        },
+        "follow_up_plan": {
+          "precision": 1.0,
+          "recall": 0.5556,
+          "f1": 0.7143,
+          "support_missing": 9
+        },
+        "functional_goals": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support_missing": 6
+        },
+        "functional_limitation": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support_missing": 2
+        },
+        "informed_consent": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support_missing": 3
+        },
+        "ordering_rationale": {
+          "precision": 1.0,
+          "recall": 0.4,
+          "f1": 0.5714,
+          "support_missing": 5
+        },
+        "physical_exam_findings": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support_missing": 2
+        },
+        "prior_conservative_treatment": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support_missing": 3
+        },
+        "progress_measurement": {
+          "precision": 0.7143,
+          "recall": 1.0,
+          "f1": 0.8333,
+          "support_missing": 5
+        },
+        "relevant_history": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support_missing": 4
+        },
+        "risk_factors": {
+          "precision": 0.5833,
+          "recall": 0.875,
+          "f1": 0.7,
+          "support_missing": 8
+        },
+        "surgical_risk_assessment": {
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "support_missing": 0
+        },
+        "symptom_duration": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support_missing": 5
+        },
+        "treatment_plan": {
+          "precision": 1.0,
+          "recall": 0.8571,
+          "f1": 0.9231,
+          "support_missing": 7
+        },
+        "visit_reason": {
+          "precision": 1.0,
+          "recall": 0.1429,
+          "f1": 0.25,
+          "support_missing": 7
+        }
+      },
+      "micro": {
+        "precision": 0.84,
+        "recall": 0.7778,
+        "f1": 0.8077,
+        "support_missing": 81
+      },
+      "invalid_output_rate": 0.0,
+      "grounding_rate": 0.9893,
+      "injection_success_rate": 0.3333,
+      "avg_latency_s": 1.703
+    },
+    "v2": {
+      "status": "complete",
+      "n_notes": 100,
+      "n_adversarial": 12,
+      "per_item": {
+        "clinical_indication": {
+          "precision": 0.875,
+          "recall": 0.875,
+          "f1": 0.875,
+          "support_missing": 8
+        },
+        "diagnosis_confirmation": {
+          "precision": 0.6667,
+          "recall": 1.0,
+          "f1": 0.8,
+          "support_missing": 4
+        },
+        "failed_conservative_treatment": {
+          "precision": 0.75,
+          "recall": 1.0,
+          "f1": 0.8571,
+          "support_missing": 3
+        },
+        "follow_up_plan": {
+          "precision": 1.0,
+          "recall": 0.8889,
+          "f1": 0.9412,
+          "support_missing": 9
+        },
+        "functional_goals": {
+          "precision": 0.75,
+          "recall": 1.0,
+          "f1": 0.8571,
+          "support_missing": 6
+        },
+        "functional_limitation": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support_missing": 2
+        },
+        "informed_consent": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support_missing": 3
+        },
+        "ordering_rationale": {
+          "precision": 0.5556,
+          "recall": 1.0,
+          "f1": 0.7143,
+          "support_missing": 5
+        },
+        "physical_exam_findings": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support_missing": 2
+        },
+        "prior_conservative_treatment": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support_missing": 3
+        },
+        "progress_measurement": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support_missing": 4
+        },
+        "relevant_history": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support_missing": 4
+        },
+        "risk_factors": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support_missing": 8
+        },
+        "surgical_risk_assessment": {
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "support_missing": 0
+        },
+        "symptom_duration": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support_missing": 5
+        },
+        "treatment_plan": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support_missing": 6
+        },
+        "visit_reason": {
+          "precision": 1.0,
+          "recall": 0.8571,
+          "f1": 0.9231,
+          "support_missing": 7
+        }
+      },
+      "micro": {
+        "precision": 0.8837,
+        "recall": 0.962,
+        "f1": 0.9212,
+        "support_missing": 79
+      },
+      "invalid_output_rate": 0.01,
+      "grounding_rate": 1.0,
+      "injection_success_rate": 0.0833,
+      "avg_latency_s": 1.399
+    },
+    "v3": {
+      "status": "complete",
+      "n_notes": 100,
+      "n_adversarial": 12,
+      "per_item": {
+        "clinical_indication": {
+          "precision": 0.8889,
+          "recall": 1.0,
+          "f1": 0.9412,
+          "support_missing": 8
+        },
+        "diagnosis_confirmation": {
+          "precision": 0.6667,
+          "recall": 1.0,
+          "f1": 0.8,
+          "support_missing": 4
+        },
+        "failed_conservative_treatment": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support_missing": 3
+        },
+        "follow_up_plan": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support_missing": 9
+        },
+        "functional_goals": {
+          "precision": 0.6,
+          "recall": 1.0,
+          "f1": 0.75,
+          "support_missing": 6
+        },
+        "functional_limitation": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support_missing": 2
+        },
+        "informed_consent": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support_missing": 3
+        },
+        "ordering_rationale": {
+          "precision": 0.4545,
+          "recall": 1.0,
+          "f1": 0.625,
+          "support_missing": 5
+        },
+        "physical_exam_findings": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support_missing": 2
+        },
+        "prior_conservative_treatment": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support_missing": 3
+        },
+        "progress_measurement": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support_missing": 5
+        },
+        "relevant_history": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support_missing": 4
+        },
+        "risk_factors": {
+          "precision": 0.8,
+          "recall": 1.0,
+          "f1": 0.8889,
+          "support_missing": 8
+        },
+        "surgical_risk_assessment": {
+          "precision": null,
+          "recall": null,
+          "f1": null,
+          "support_missing": 0
+        },
+        "symptom_duration": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support_missing": 5
+        },
+        "treatment_plan": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support_missing": 7
+        },
+        "visit_reason": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support_missing": 7
+        }
+      },
+      "micro": {
+        "precision": 0.8438,
+        "recall": 1.0,
+        "f1": 0.9153,
+        "support_missing": 81
+      },
+      "invalid_output_rate": 0.0,
+      "grounding_rate": 1.0,
+      "injection_success_rate": 0.0,
+      "avg_latency_s": 1.603
+    }
+  },
+  "n_notes": 100,
+  "n_adversarial": 12,
+  "wall_time_s": 3072.7,
+  "data_note": "Synthetic notes generated from templates; ground truth is known by construction. Not real clinical documentation."
+}
