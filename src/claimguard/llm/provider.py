@@ -10,7 +10,8 @@ from __future__ import annotations
 import random
 import threading
 import time
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
+from functools import lru_cache
 from typing import Protocol
 
 from claimguard import config
@@ -134,3 +135,44 @@ def get_provider(settings: config.Settings | None = None) -> tuple[LLMProvider, 
         max_calls=settings.llm_max_calls_per_run,
     )
     return provider, "ok"
+
+
+def resolve_model(settings: config.Settings) -> str:
+    """Verify the key with one tiny call; if the model name is rejected, pick another."""
+    provider = GeminiProvider(settings.gemini_api_key, settings.llm_model, max_calls=3)
+    try:
+        provider.complete("Reply with the single word OK.", "OK?")
+        return settings.llm_model
+    except LLMError as exc:
+        status = getattr(exc.__cause__, "status_code", None)
+        if status not in (400, 404):
+            raise
+    names = [m.id.split("/")[-1] for m in provider.client.models.list()]
+    for pattern in ("flash-lite", "flash"):
+        candidates = sorted(n for n in names if pattern in n and "gemini" in n)
+        if candidates:
+            print(f"LLM_MODEL {settings.llm_model!r} rejected; using {candidates[-1]!r}")
+            return candidates[-1]
+    raise RuntimeError("no suitable Gemini model found")
+
+
+@lru_cache(maxsize=4)
+def _working_model(api_key: str, model: str) -> str:
+    settings = replace(config.get_settings(), gemini_api_key=api_key, llm_model=model)
+    return resolve_model(settings)
+
+
+def default_provider() -> tuple[LLMProvider, str]:
+    """Provider from the environment, with the model name checked once per process.
+
+    If the check itself fails (for example no network), the configured name is kept and
+    the LLM step will report `unavailable` instead of crashing.
+    """
+    settings = config.get_settings()
+    if settings.llm_configured:
+        try:
+            model = _working_model(settings.gemini_api_key, settings.llm_model)
+            settings = replace(settings, llm_model=model)
+        except (LLMError, RuntimeError):
+            pass
+    return get_provider(settings)

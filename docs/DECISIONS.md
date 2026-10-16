@@ -43,3 +43,4 @@ One line per decision: what, and why.
 - Synthea output depends on the run date and time even with a fixed seed (same jar, a later run gave 203,909 vs 202,990 encounters), so results are reproducible from the saved raw data, not from re-running Synthea. Reported numbers are from the original run.
 - The demo loader holds a lock file (`claimguard.db.lock`) while it resets and fills the database: two loaders running at once let one drop the other's rows (`StaleDataError`). A second run now exits with a clear message.
 - The demo loader checks the model name the same way as the prompt eval (`resolve_model`), so a rejected `LLM_MODEL` no longer turns every LLM check into `unavailable`.
+- Model-name resolution lives in `llm/provider.py` and runs once per process for every path (eval, demo loader, API and dashboard assessments); if the check itself fails, the configured name is kept and the LLM step reports `unavailable`.

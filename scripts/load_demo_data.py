@@ -19,22 +19,11 @@ import pandas as pd
 from claimguard import config
 from claimguard.api.db import AlreadyRunning, Base, exclusive_lock, get_engine, session_factory
 from claimguard.data.notes import load_notes
-from claimguard.llm.eval import resolve_model
-from claimguard.llm.provider import LLMProvider, get_provider
+from claimguard.llm.provider import default_provider
 from claimguard.ml.train import time_split
 from claimguard.services import assessment as svc
 
 LOCK_PATH = config.DB_PATH.with_name(config.DB_PATH.name + ".lock")
-
-
-def make_provider() -> tuple[LLMProvider, str]:
-    """Provider and LLM state; with a key, check the model name first (as the eval does)."""
-    settings = config.get_settings()
-    if settings.llm_configured:
-        model = resolve_model(settings)
-        settings = config.Settings(**{**settings.__dict__, "llm_model": model})
-        print(f"LLM model: {model}")
-    return get_provider(settings)
 
 
 def main() -> None:
@@ -61,7 +50,8 @@ def load(n: int, llm_claims: int) -> None:
     Base.metadata.create_all(engine)
     session = session_factory()()
 
-    provider, llm_state = make_provider()
+    provider, llm_state = default_provider()
+    print(f"LLM model: {provider.model}")
     statuses: Counter[str] = Counter()
     llm_statuses: Counter[str] = Counter()
     for i, row in enumerate(demo.to_dict(orient="records")):

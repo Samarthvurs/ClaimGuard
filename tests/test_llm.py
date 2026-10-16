@@ -279,6 +279,20 @@ def test_resolve_model_falls_back_when_name_rejected(monkeypatch: pytest.MonkeyP
         def complete(self, system: str, user: str):
             raise LLMError("rejected") from _FakeError(404)
 
-    monkeypatch.setattr(llm_eval, "GeminiProvider", _Rejecting)
+    from claimguard.llm import provider as provider_mod
+
+    monkeypatch.setattr(provider_mod, "GeminiProvider", _Rejecting)
     settings = config.Settings("real-looking-key", "gemini-2.5-flash-lite", 10, 600, "k")
-    assert llm_eval.resolve_model(settings) == "gemini-flash-lite-latest"
+    assert provider_mod.resolve_model(settings) == "gemini-flash-lite-latest"
+
+
+def test_default_provider_uses_resolved_model(monkeypatch: pytest.MonkeyPatch) -> None:
+    from claimguard.llm import provider as provider_mod
+
+    monkeypatch.setenv("GEMINI_API_KEY", "real-looking-key")
+    monkeypatch.setenv("LLM_MODEL", "gemini-2.5-flash-lite")
+    monkeypatch.setattr(provider_mod, "resolve_model", lambda s: "gemini-flash-lite-latest")
+    provider_mod._working_model.cache_clear()
+    provider, status = provider_mod.default_provider()
+    provider_mod._working_model.cache_clear()
+    assert status == "ok" and provider.model == "gemini-flash-lite-latest"

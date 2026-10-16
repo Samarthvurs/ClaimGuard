@@ -16,7 +16,7 @@ from sqlalchemy.orm import Session
 from claimguard import config
 from claimguard.api.db import Assessment, Claim, ClaimNote, DocCheck, Review
 from claimguard.llm.checker import check_documentation, note_hash
-from claimguard.llm.provider import LLMProvider, get_provider
+from claimguard.llm.provider import LLMProvider, default_provider
 from claimguard.llm.redact import redact
 from claimguard.ml.features import RAW_FIELDS
 from claimguard.ml.serve import get_scorer
@@ -97,7 +97,7 @@ def assess_claim(
         llm_status = "skipped"
     else:
         if provider is None:
-            provider, configured = get_provider()
+            provider, configured = default_provider()
         else:
             configured = "ok"
         if configured == "not_configured":

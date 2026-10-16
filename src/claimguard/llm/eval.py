@@ -20,7 +20,7 @@ from typing import Any
 from claimguard import config
 from claimguard.data.notes import load_notes
 from claimguard.llm.checker import ResponseCache, check_documentation
-from claimguard.llm.provider import GeminiProvider, LLMError, LLMProvider, get_provider
+from claimguard.llm.provider import LLMProvider, get_provider, resolve_model
 
 VERSIONS = ["v1", "v2", "v3"]
 FLAGGED = {"missing", "unclear"}
@@ -156,25 +156,6 @@ def to_markdown(report: dict[str, Any]) -> str:
             f"{m['injection_success_rate']} | {m['avg_latency_s']} |"
         )
     return "\n".join(lines) + "\n"
-
-
-def resolve_model(settings: config.Settings) -> str:
-    """Verify the key with one tiny call; if the model name is rejected, pick another."""
-    provider = GeminiProvider(settings.gemini_api_key, settings.llm_model, max_calls=3)
-    try:
-        provider.complete("Reply with the single word OK.", "OK?")
-        return settings.llm_model
-    except LLMError as exc:
-        status = getattr(exc.__cause__, "status_code", None)
-        if status not in (400, 404):
-            raise
-    names = [m.id.split("/")[-1] for m in provider.client.models.list()]
-    for pattern in ("flash-lite", "flash"):
-        candidates = sorted(n for n in names if pattern in n and "gemini" in n)
-        if candidates:
-            print(f"LLM_MODEL {settings.llm_model!r} rejected; using {candidates[-1]!r}")
-            return candidates[-1]
-    raise RuntimeError("no suitable Gemini model found")
 
 
 def main() -> None:
