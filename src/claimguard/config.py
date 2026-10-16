@@ -70,7 +70,7 @@ def get_settings() -> Settings:
     """Read settings from the current environment."""
     return Settings(
         gemini_api_key=os.getenv("GEMINI_API_KEY", ""),
-        llm_model=os.getenv("LLM_MODEL", "gemini-2.5-flash-lite"),
+        llm_model=os.getenv("LLM_MODEL", "gemini-flash-lite-latest"),
         llm_max_rpm=int(os.getenv("LLM_MAX_RPM", "10")),
         llm_max_calls_per_run=int(os.getenv("LLM_MAX_CALLS_PER_RUN", "600")),
         api_key=os.getenv("API_KEY", "dev-key-change-me"),

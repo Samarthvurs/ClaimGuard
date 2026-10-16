@@ -20,9 +20,9 @@ ClaimGuard is a learning project. Read every result with these limits in mind.
   the demo. Codes are Synthea's SNOMED-CT codes; no CPT or ICD accuracy is claimed.
 - **Small scale.** 30,000 claims from 3,000 synthetic patients; 300 claims in the demo database;
   the prompt evaluation uses about 100 notes.
-- **LLM results not yet measured.** Without a Gemini key the documentation check runs only with a
-  deterministic mock in tests. The mock is keyed to the note templates, so its outputs are never
-  reported as results.
+- **LLM results are on template notes.** The prompt evaluation used 100 synthetic notes with
+  known answers. Real notes are messier, so real-world accuracy would be lower. The deterministic
+  mock used in tests is keyed to the templates, so its outputs are never reported as results.
 - **Demo security only.** One shared API key in `.env`, SQLite, no user accounts, no audit trail
   beyond review records. Not for public deployment. Not HIPAA compliant.
 - **Human decision required.** The system never approves or denies a claim; it only flags risk and

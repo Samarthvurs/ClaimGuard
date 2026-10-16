@@ -79,5 +79,33 @@
         "TIMELY_FILING": 0.0001
       }
     }
+  },
+  "doc_check": {
+    "llm_status": "ok",
+    "model": "gemini-flash-lite-latest",
+    "prompt_version": "v3",
+    "items": [
+      {
+        "item_id": "treatment_plan",
+        "status": "present",
+        "evidence": "Therapy plan documented: cognitive and behavioral therapy for 12 visits.",
+        "confidence": 0.95
+      },
+      {
+        "item_id": "functional_goals",
+        "status": "missing",
+        "evidence": null,
+        "confidence": 0.9
+      },
+      {
+        "item_id": "progress_measurement",
+        "status": "present",
+        "evidence": "Baseline pain score 7/10.",
+        "confidence": 0.95
+      }
+    ],
+    "summary": "Treatment plan and baseline progress measurement are documented; functional goals are missing.",
+    "draft_request": "Please provide measurable functional goals that the therapy aims to reach.",
+    "needs_review": []
   }
 }

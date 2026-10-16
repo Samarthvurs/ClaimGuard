@@ -2,9 +2,8 @@
 
 One line per decision: what, and why.
 
-- Repo root is the project folder itself (not a nested `claimguard/` dir): simpler paths, same layout otherwise.
 - Python 3.11 venv (3.14 is the system default): best wheel availability for LightGBM, SHAP and Streamlit.
-- Default `LLM_MODEL` is `gemini-2.5-flash-lite`: cheapest instruction-following Flash-Lite model on the OpenAI-compatible endpoint; overridable via `.env`.
+- Default `LLM_MODEL` is `gemini-flash-lite-latest`. The first default, `gemini-2.5-flash-lite`, was rejected by the endpoint at evaluation time, so the code falls back to a listed Flash-Lite/Flash model automatically.
 - Data source: Synthea `master-branch-latest` jar (build d9d07a6, built 2026-08-18), downloaded 2026-10-15, run with `-p 3000 -s 42 -cs 42`, CSV export only. Java 25 was available, so no fallback was needed.
 - Synthea output row counts: 3,433 patients (3,000 alive + 433 deceased), 202,990 encounters, 548,888 procedures, 121,980 conditions, 10 payers, 1,014 providers.
 - Claims = one row per encounter with a procedure, using the encounter's highest-cost procedure as the principal one; encounters from 2016-01-01 onward only (earlier years are sparse).
@@ -26,7 +25,7 @@ One line per decision: what, and why.
 - Predicted reason: a multiclass LightGBM trained on denied training claims only; shown only when the claim is flagged as likely denied, otherwise `NONE`.
 - SHAP values are summed per raw feature (one-hot columns added back together) so each factor is described in plain language with the claim's actual value.
 - Procedure-condition pairing is encoded as log frequency of the pair in the training data (fit inside the pipeline), a time-safe proxy for coding mismatch.
-- LLM key not configured tonight (placeholder in `.env`), so the real prompt evaluation was not run; `reports/prompt_eval.*` will be created by `python -m claimguard.llm.eval` once a key is added. The eval CLI writes nothing when no key is set.
+- The prompt evaluation ran on `gemini-flash-lite-latest` over 100 synthetic notes (12 adversarial); results are in `reports/prompt_eval.md`.
 - Grounding check normalises whitespace, case, surrounding quotes and a trailing full stop before the substring test; anything else counts as ungrounded.
 - Any validation failure (schema, unknown or duplicate item, unanswered item, ungrounded evidence, approve/deny words) triggers one retry with the errors appended to the prompt; a second failure gives `llm_status = "invalid_output"`.
 - Grounding rate is measured on the first attempt's output (raw model behaviour before the retry).

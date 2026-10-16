@@ -39,24 +39,31 @@ fields and written in plain language. The top five for this claim:
 
 The reviewer can see at a glance that the problem is paperwork, not coding or timing.
 
-## 4. The LLM checks the note (when a key is configured)
+## 4. The LLM checks the note
 
 The therapy checklist has three items: treatment plan, functional goals and progress measurement.
 The redacted note reads, in part: "Therapy plan documented: cognitive and behavioral therapy for 12
 visits. Medication list reviewed. Baseline pain score 7/10."
 
-With a Gemini key, the checker sends the checklist and the note (inside `<note>` tags, treated as
-untrusted data) using prompt v3, at temperature 0. It expects JSON with a status, a verbatim quote
-and a confidence per item. The code then checks every answer: item ids must come from the
-checklist, every "present" quote must actually appear in the redacted note (the **grounding
-check**), confidences must be between 0 and 1, and the text must not say "approve" or "deny". A bad
-answer is retried once; a second bad answer becomes `invalid_output`. Unclear or low-confidence
-items are routed to the reviewer, and the model drafts a short request to the provider for what is
-missing. In this note the ground truth is: treatment plan present, progress measurement
-present, functional goals missing, so a correct check would ask the provider for functional goals.
+The checker sends the checklist and the note (inside `<note>` tags, treated as untrusted data) to
+Gemini (`gemini-flash-lite-latest`) using prompt v3, at temperature 0. It expects JSON with a
+status, a verbatim quote and a confidence per item. The code then checks every answer: item ids
+must come from the checklist, every "present" quote must actually appear in the redacted note (the
+**grounding check**), confidences must be between 0 and 1, and the text must not say "approve" or
+"deny". A bad answer is retried once; a second bad answer becomes `invalid_output`. Unclear or
+low-confidence items are routed to the reviewer.
 
-Tonight no key was configured, so this claim's assessment shows `llm_status = "not_configured"`
-and the dashboard says "LLM not configured" while still showing the ML result.
+Gemini's actual answer for this claim (saved in `reports/example_assessment.json`):
+
+| Item | Status | Evidence quoted from the note |
+|---|---|---|
+| Treatment plan | present | "Therapy plan documented: cognitive and behavioral therapy for 12 visits." |
+| Functional goals | **missing** | none |
+| Progress measurement | present | "Baseline pain score 7/10." |
+
+Draft request: *"Please provide measurable functional goals that the therapy aims to reach."*
+This matches the note's known ground truth, and it agrees with the ML model: the claim is short
+on documentation.
 
 ## 5. A risk status is set
 
